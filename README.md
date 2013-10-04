@@ -34,4 +34,4 @@ See also
 --------
 * [Kurt](https://github.com/blob8108/kurt) by @blob8108
 
-Made with (JSZip)[http://stuk.github.io/jszip/]
+Made with [JSZip](http://stuk.github.io/jszip/)
