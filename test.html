@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Snap! Test Page</title>
+		<script type="text/javascript" src="snapin8r.js"></script>
+		<script type="text/javascript" src="jszip.js"></script>
+		<script type="text/javascript" src="jszip-load.js"></script>
+		<script type="text/javascript" src="jszip-inflate.js"></script>
+		<script type="text/javascript" src="jszip-deflate.js"></script>
+		<script type="text/javascript">
+		window.onload = function() {
+			document.getElementById("input").addEventListener("change", function(evt) {
+			    var file = evt.target.files[0];
+			    if (!file) {
+			  		alert("Oops!");
+			    }
+			  	var reader = new FileReader();
+				// Closure to capture the file information.
+				reader.onload = function(e) {
+				  	var zip = new JSZip(e.target.result);
+				  	Snapin8r(zip);
+				}
+				reader.readAsArrayBuffer(file);
+			}, false);
+		};
+		</script>
+	</head>
+	<body>
+		<input type="file" id="input"/>
+		<br/>
+		<iframe id="sandbox" width=1000 height=800></iframe>
+	</body>
+</html>

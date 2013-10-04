@@ -1,0 +1,16 @@
+#!/usr/bin/python
+
+from twisted.web.server import Site
+from twisted.web.static import File
+from twisted.web.resource import Resource
+from twisted.internet import reactor
+import sys
+import socket
+IP = socket.gethostbyname(socket.gethostname())
+
+root = File(sys.argv[1])
+
+factory = Site(root)
+reactor.listenTCP(8000, factory, interface=IP)
+print IP+":8000"
+reactor.run()

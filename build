@@ -1,0 +1,1 @@
+uglifyjs jszip-deflate.js jszip-inflate.js jszip-load.js jszip.js snapin8r.js -o release/snapin8r.min.js
