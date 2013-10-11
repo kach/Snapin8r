@@ -1,5 +1,8 @@
 /*  Snapin8r
 	Snapin8r.js
+	Hardmath123 - 2013
+
+	-! gui.js:1553
 */
 
 ! function () {
@@ -665,8 +668,8 @@
         result.content.push(varks);
 
         result.content.push(convert_scriptable(json_data, zip, true));
-        console.log(result.toString());
-        document.getElementById("sandbox").src = ("http://snap.berkeley.edu/snapsource/snap.html#open:" + encodeURIComponent(result));
+        return result.toString();
+        //document.getElementById("sandbox").src = ("http://snap.berkeley.edu/snapsource/snap.html#open:" + encodeURIComponent(result));
     };
 
     // Exports:
@@ -674,3 +677,41 @@
     window.Snapin8r.XMLData = XMLData;
     window.Snapin8r.ConversionError = ConversionError;
 }();
+
+// Redifinin'
+// What changesets are all about
+// Magic.
+IDE_Morph.prototype.droppedBinary = function (anArrayBuffer, name) {
+    // dynamically load ypr->Snap!
+    var ypr = document.getElementById('ypr'),
+        myself = this,
+        suffix = name.substring(name.length - 3);
+
+    // @n I'm messing with your code
+    if (suffix.toLowerCase() !== 'ypr') {
+        // It's a ZIP. sb2 or zip.
+        var zip = new JSZip(anArrayBuffer);
+        myself.droppedText(Snapin8r(zip));
+
+        return;
+    }
+    
+    function loadYPR (buffer, lbl) {
+        var reader = new sb.Reader(),
+            pname = lbl.split('.')[0]; // up to period
+        reader.onload = function (info) {
+            myself.droppedText(new sb.XMLWriter().write(pname, info));
+        };
+        reader.readYPR(new Uint8Array(buffer));
+    }
+
+    if (!ypr) {
+        ypr = document.createElement('script');
+        ypr.id = 'ypr';
+        ypr.onload = function () {loadYPR(anArrayBuffer, name); };
+        document.head.appendChild(ypr);
+        ypr.src = 'ypr.js';
+    } else {
+        loadYPR(anArrayBuffer, name);
+    }
+};
