@@ -7,9 +7,10 @@ Snapin8r is a plugin for [Snap!](http://snap.berkeley.edu) which converts [Scrat
 Usage
 -----
 Add snapin8r.min.js to your copy of Snap! by:
+
 1. Add snapin8r.min.js to the main `snap` directory
 2. Add the line `<script src="snapin8r.min.js"></script>` at the *bottom* of the `head`.
-Alternatively, evaluate snapin8r.min.js on the command line to enable Snapin8tion.
+3. Alternatively, evaluate snapin8r.min.js on the command line to enable Snapin8tion.
 
 To-do
 -----
@@ -18,6 +19,8 @@ To-do
 3. Errors
 4. Make command-line tool with `node`
     1. Fetch project with URL
+5. Fetch snapin8r.min.js only when needed
+6. Get Jens to integrate it! :-)
 
 Developing
 ----------
