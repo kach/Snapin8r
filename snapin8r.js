@@ -459,6 +459,13 @@
                         ["s", "doStop"]
                     ]);
                 }
+                if (arg === "other scripts in sprite") {
+                    return new XMLData("block", [
+                            ["s", "doStopOthers"],
+                        ],
+                        [new XMLData("l", null, new XMLData("option", null, "other scripts in sprite"))]
+                    );
+                }
                 throw new ConversionError("Snap! can't stop all scripts except the current one.");
             } else if (blib.COLOR_INPUTS[proc] && blib.COLOR_INPUTS[proc].indexOf(i) !== -1) {
                 var h = Math.abs(parseInt(arg)).toString(16);
