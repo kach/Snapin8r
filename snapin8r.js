@@ -1,8 +1,8 @@
 /*  Snapin8r
-	Snapin8r.js
-	Hardmath123 - 2013
+    Snapin8r.js
+    Hardmath123 - 2013
 
-	-! gui.js:1553
+    -! gui.js:1553
 */
 
 ! function () {
@@ -300,8 +300,13 @@
         var f = zip.file(
             costume.baseLayerID + "." + costume.baseLayerMD5.split(".")[1]
         ).asUint8Array();
+        var old_str = "";
+        for (var i=0; i<f.length; i++) {
+            old_str += String.fromCharCode(f[i]);
+        }
         var str = btoa(
-            String.fromCharCode.apply(null, f)
+            //String.fromCharCode.apply(null, f)
+            old_str
         );
         var ext = costume.baseLayerMD5.split(".")[1];
         ext = ext === "svg" ? "svg+xml" : ext;
@@ -337,7 +342,6 @@
         if (scriptable["lists"]) {
             scriptable["lists"].forEach(
                 function (l) {
-                    console.log(l);
                     var lxml = new XMLData("list");
                     l["contents"].forEach(
                         function (item) {
@@ -367,8 +371,13 @@
         var f = zip.file(
             sound.soundID + "." + sound.md5.split(".")[1]
         ).asUint8Array();
+        var old_str = "";
+        for (var i=0; i<f.length; i++) {
+            old_str += String.fromCharCode(f[i]);
+        }
         var str = btoa(
-            String.fromCharCode.apply(null, f)
+            //String.fromCharCode.apply(null, f)
+            old_str
         );
         return "data:audio/" + sound.md5.split(".")[1] + ";base64," + str;
     }
@@ -413,8 +422,11 @@
             );
             args = blk.slice(2);
         } else {
+            function bam() {
+                throw new Error("Unknown spec "+proc);
+            }
             mainblk = new XMLData("block");
-            mainblk.property("s", blib.BLOCK_LIBRARY[proc]);
+            mainblk.property("s", blib.BLOCK_LIBRARY[proc] || bam());
             args = blk.slice(1);
         }
         if (proc === "concatenate:with:") {
@@ -428,12 +440,10 @@
             if (arg === "_stage_") arg = "Stage";
             if (arg === "e^") arg = "e ^";
             if (arg === false) {
-                mainblk.content.append(new XMLData("l"));
+                mainblk.content.push(new XMLData("l"));
                 continue;
             }
             if (proc === "getAttribute:of:") {
-                console.log("a");
-                console.log(arg);
                 if (arg === "backdrop name") arg = "costume name";
                 if (arg === "backdrop #") arg = "costume #";
                 if (["volume", "x position", "y position", "direction", "costume #", "costume name"].indexOf("arg") !== -1) {
@@ -459,7 +469,7 @@
                         ["s", "doStop"]
                     ]);
                 }
-                if (arg === "other scripts in sprite") {
+                if (arg === "other scripts in sprite" || arg === "other scripts in stage") {
                     return new XMLData("block", [
                             ["s", "doStopOthers"],
                         ],
@@ -676,7 +686,6 @@
 
         result.content.push(convert_scriptable(json_data, zip, true));
         return result.toString();
-        //document.getElementById("sandbox").src = ("http://snap.berkeley.edu/snapsource/snap.html#open:" + encodeURIComponent(result));
     };
 
     // Exports:
