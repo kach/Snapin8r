@@ -10,15 +10,32 @@
 					e.stopPropagation(); // Stops some browsers from redirecting.
 					e.preventDefault();
 
-					var files = e.dataTransfer.files;
+					var file = e.dataTransfer.files[0];
 					var reader = new FileReader();
 					reader.onload = function(e) {
-						var zip = new JSZip(e.target.result);
-						dropzone.innerHTML = Snapin8r(zip);
+						try {
+							var zip = new JSZip(e.target.result);
+							var l = document.createElement("a");
+							l.href = "http://snap.berkeley.edu/snapsource/snap.html#open:" + encodeURIComponent(Snapin8r(zip));
+							l.innerHTML = "Believe it or not, it worked. Click here to open your project! "+file.name;
+							l.style.color = "green";
+							dropzone.style.backgroundColor = "#aea";
+							while (dropzone.firstChild) {
+								dropzone.removeChild(dropzone.firstChild);
+							}
+							dropzone.appendChild(l);
+						} catch (err) {
+							var l = document.createElement("span");
+							l.innerHTML = "Well, this is embarassing.<br/>The geekish runes read: <code>"+err+"</code><br/>Chances are, you use a special Scratch feature we don't know how to convert. Sorry! You can help us out by reporting this error.";
+							l.style.color = "#300";
+							dropzone.style.backgroundColor = "#eaa";
+							while (dropzone.firstChild) {
+								dropzone.removeChild(dropzone.firstChild);
+							}
+							dropzone.appendChild(l);
+						}
 					}
-					for (var i = 0, f; f = files[i]; i++) {
-						reader.readAsArrayBuffer(files[i]);
-					}
+					reader.readAsArrayBuffer(file);
 				}
 
 				dropzone.addEventListener("drop", handleDrop, false);
@@ -82,7 +99,7 @@
 			</div>
 			<div id="right-column">
 				<div id="dropzone">
-					Drop an <code>sb2</code> file here.
+					Drop an <code>sb2</code> file here&hellip;
 				</div>
 			</div>
 		</div>
