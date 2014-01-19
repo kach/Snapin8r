@@ -654,7 +654,7 @@
     }
 
     // Actual exported function
-    window.Snapin8r = function (zip) {
+    window.Snapin8r = function (zip, name) {
         // Convert a zip object output by JSZip into an XML string for Snap!.
         if (!zip.file("project.json")) {
             throw new ConversionError("project.json does not exist.");
@@ -668,7 +668,7 @@
             );
         }
         var result = new XMLData("project");
-        result.property("name", "Untitled");
+        result.property("name", name||"Untitled");
         result.property("app", "Snapin8r");
         result.property("version", "1");
         result.content.push(new XMLData("notes", null, "Converted by Snapin8r."));
