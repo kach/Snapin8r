@@ -1,8 +1,6 @@
 /*  Snapin8r
     Snapin8r.js
     Hardmath123 - 2013
-
-    -! gui.js:1553
 */
 
 ! function () {
