@@ -24,7 +24,7 @@ To-do
 
 Developing
 ----------
-Feel free to fix stuff! Use the `build` command (needs `uglifyjs`) to build snapin8r.min.js from Snapin8r and JSZip's files--or import all of JSZip into Snap! before Snapin8r.
+Feel free to fix stuff! Use the `build` command to build snapin8r.min.js from Snapin8r and JSZip's files (use the `-c` option to copy a handy bookmarklet that imports `snapin8r.js` into Snap!--useful for testing if you symlink `snapin8r.min.js` to `Snap/snapin8r.js` on your local copy).
 
 See also
 --------

@@ -1,1 +1,6 @@
-uglifyjs jszip.js jszip-load.js jszip-deflate.js jszip-inflate.js snapin8r.js -o snapin8r.min.js
+cat jszip.js jszip-load.js jszip-deflate.js jszip-inflate.js snapin8r.js > snapin8r.min.js
+echo "Built."
+if [ "$1" == "-c" ]; then
+	cat bookmarklet | pbcopy;
+	echo "Copied.";
+fi

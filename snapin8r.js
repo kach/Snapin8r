@@ -422,11 +422,10 @@
             );
             args = blk.slice(2);
         } else {
-            function bam() {
-                throw new Error("Unknown spec "+proc);
-            }
             mainblk = new XMLData("block");
-            mainblk.property("s", blib.BLOCK_LIBRARY[proc] || bam());
+            mainblk.property("s", blib.BLOCK_LIBRARY[proc] || !function() {
+                throw new Error("Unknown spec "+proc);
+            }());
             args = blk.slice(1);
         }
         if (proc === "concatenate:with:") {
