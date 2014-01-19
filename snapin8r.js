@@ -488,12 +488,18 @@
                     if (arg instanceof Array) {
                         arglist.content.push(convert_block(arg, objName));
                     } else {
+                        if (arg === 0) {
+                            arg = "0";
+                        }
                         arglist.content.push(new XMLData("l", null, arg));
                     }
                 } else {
                     if (arg instanceof Array) {
                         mainblk.content.push(convert_block(arg, objName));
                     } else {
+                        if (arg === 0) {
+                            arg = "0";
+                        }
                         mainblk.content.push(new XMLData("l", null, arg));
                     }
                 }
