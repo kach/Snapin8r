@@ -7,6 +7,7 @@
 			window.addEventListener("load", function() {
 				var dropzone = document.getElementById("dropzone");
 				function handleDrop(e) {
+					this.style.borderColor = "#eee";
 					e.stopPropagation(); // Stops some browsers from redirecting.
 					e.preventDefault();
 
@@ -38,8 +39,22 @@
 					}
 					reader.readAsArrayBuffer(file);
 				}
-
+				function handleDragEnter(e) {
+					this.style.borderColor = "orange";
+				}
+				function hangleDragOver(e) {
+					if (e.preventDefault) {
+						e.preventDefault();
+					}
+				}
+				function handleDragLeave(e) {
+					this.style.borderColor = "#eee";
+				}
 				dropzone.addEventListener("drop", handleDrop, false);
+
+				dropzone.addEventListener('dragenter', handleDragEnter, false);
+				dropzone.addEventListener('dragleave', handleDragLeave, false);
+				dropzone.addEventListener('dragover', hangleDragOver, false);
 			}, false);
 		</script>
 		<style>
