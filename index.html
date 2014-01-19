@@ -16,8 +16,9 @@
 						try {
 							var zip = new JSZip(e.target.result);
 							var l = document.createElement("a");
-							l.href = "http://snap.berkeley.edu/snapsource/snap.html#open:" + encodeURIComponent(Snapin8r(zip));
-							l.innerHTML = "Believe it or not, it worked. Click here to open your project! "+file.name;
+							l.href = "http://snap.berkeley.edu/snapsource/snap.html#open:"
+								+ encodeURIComponent(Snapin8r(zip, file.name.replace(".sb2", "")));
+							l.innerHTML = "Believe it or not, it worked. Click here to open your project!";
 							l.style.color = "green";
 							dropzone.style.backgroundColor = "#aea";
 							while (dropzone.firstChild) {
@@ -26,7 +27,7 @@
 							dropzone.appendChild(l);
 						} catch (err) {
 							var l = document.createElement("span");
-							l.innerHTML = "Well, this is embarassing.<br/>The geekish runes read: <code>"+err+"</code><br/>Chances are, you use a special Scratch feature we don't know how to convert. Sorry! You can help us out by reporting this error.";
+							l.innerHTML = "Well, this is embarassing.<br/>The ancient geekish runes read: <code>"+err+"</code> Chances are, you use a special Scratch feature that we don't know how to convert. Sorry! You can help us out by reporting this error.";
 							l.style.color = "#300";
 							dropzone.style.backgroundColor = "#eaa";
 							while (dropzone.firstChild) {
@@ -80,6 +81,7 @@
 				display: table-cell;
 				vertical-align: middle;
 				color:#aaa;
+				padding: 10px;
 			}
 			p {
 				text-indent: 10px;
@@ -95,7 +97,7 @@
 				<h1>Snapin8r</h1>
 				<p>Snapin8r converts a subset <a href="http://scratch.mit.edu">Scratch 2.0</a> projects to <a href="http://snap.berkeley.edu">Snap!</a> projects. This page lets you use the current development version of Snapin8r to convert your projects.
 
-				<p>Snapin8r can't convert projects that use Scratch specific features, specifically cloud variables, the username reporter, and certain unsupported blocks. Furthermore, being on the bleeding edge means that you might get errors in conversion because of unresolved bugs&mdash;please report these to @Hardmath123 on Scratch.
+				<p>Snapin8r can't convert projects that use Scratch specific features, specifically cloud variables, the username reporter, and certain unsupported blocks. Furthermore, being on the bleeding edge means that you might get errors in conversion because of unresolved bugs&mdash;please report these to <a href="http://scratch.mit.edu/users/Hardmath123">@Hardmath123</a> on Scratch or <a href="https://github.com/Hardmath123/Snapin8r/issues">on Github</a>
 			</div>
 			<div id="right-column">
 				<div id="dropzone">
