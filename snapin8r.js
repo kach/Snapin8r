@@ -424,7 +424,7 @@
         } else {
             mainblk = new XMLData("block");
             mainblk.property("s", blib.BLOCK_LIBRARY[proc] || !function() {
-                throw new Error("Unknown spec "+proc);
+                throw new ConversionError("Unknown spec "+proc);
             }());
             args = blk.slice(1);
         }
@@ -693,40 +693,39 @@
     window.Snapin8r.ConversionError = ConversionError;
 }();
 
-// Redifinin'
-// What changesets are all about
-// Magic.
-IDE_Morph.prototype.droppedBinary = function (anArrayBuffer, name) {
-    // dynamically load ypr->Snap!
-    var ypr = document.getElementById('ypr'),
-        myself = this,
-        suffix = name.substring(name.length - 3);
+if (window.IDE_Morph) { // I'm on Snap!--make some modifications
+    IDE_Morph.prototype.droppedBinary = function (anArrayBuffer, name) {
+        // dynamically load ypr->Snap!
+        var ypr = document.getElementById('ypr'),
+            myself = this,
+            suffix = name.substring(name.length - 3);
 
-    // @n I'm messing with your code
-    if (suffix.toLowerCase() !== 'ypr') {
-        // It's a ZIP. sb2 or zip.
-        var zip = new JSZip(anArrayBuffer);
-        myself.droppedText(Snapin8r(zip));
+        // @n I'm messing with your code
+        if (suffix.toLowerCase() !== 'ypr') {
+            // It's a ZIP. sb2 or zip.
+            var zip = new JSZip(anArrayBuffer);
+            myself.droppedText(Snapin8r(zip));
 
-        return;
-    }
-    
-    function loadYPR (buffer, lbl) {
-        var reader = new sb.Reader(),
-            pname = lbl.split('.')[0]; // up to period
-        reader.onload = function (info) {
-            myself.droppedText(new sb.XMLWriter().write(pname, info));
-        };
-        reader.readYPR(new Uint8Array(buffer));
-    }
+            return;
+        }
+        
+        function loadYPR (buffer, lbl) {
+            var reader = new sb.Reader(),
+                pname = lbl.split('.')[0]; // up to period
+            reader.onload = function (info) {
+                myself.droppedText(new sb.XMLWriter().write(pname, info));
+            };
+            reader.readYPR(new Uint8Array(buffer));
+        }
 
-    if (!ypr) {
-        ypr = document.createElement('script');
-        ypr.id = 'ypr';
-        ypr.onload = function () {loadYPR(anArrayBuffer, name); };
-        document.head.appendChild(ypr);
-        ypr.src = 'ypr.js';
-    } else {
-        loadYPR(anArrayBuffer, name);
-    }
-};
+        if (!ypr) {
+            ypr = document.createElement('script');
+            ypr.id = 'ypr';
+            ypr.onload = function () {loadYPR(anArrayBuffer, name); };
+            document.head.appendChild(ypr);
+            ypr.src = 'ypr.js';
+        } else {
+            loadYPR(anArrayBuffer, name);
+        }
+    };
+}
