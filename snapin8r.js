@@ -123,7 +123,7 @@
             "timer": "reportTimer",
             "timerReset": "doResetTimer",
             "getAttribute:of:": "reportAttributeOf",
-            //	"timeAndDate":"",
+            "timeAndDate":"reportDate",
             //	"timestamp":"",
             //	"getUserId":"",
             //	"doAsk":"",
