@@ -1,4 +1,4 @@
-cat jszip.js jszip-load.js jszip-deflate.js jszip-inflate.js snapin8r.js > snapin8r.min.js
+cat jszip/dist/jszip.js snapin8r.js > snapin8r.min.js
 echo "Built."
 if [ "$1" == "-c" ]; then
 	cat snapin8r.min.js | pbcopy;
