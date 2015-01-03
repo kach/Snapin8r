@@ -444,7 +444,8 @@
                 if (arg === "backdrop name") arg = "costume name";
                 if (arg === "backdrop #") arg = "costume #";
                 if (["volume", "x position", "y position", "direction", "costume #", "costume name"].indexOf(arg) !== -1) {
-                    arg = new XMLData(new XMLData("option", null, arg));
+                    arg = new XMLData("option", null, arg).toString();
+                    console.log(arg);
                 }
                 mainblk.content.push(new XMLData("l", null, arg));
             } else if (blib.C_INPUTS[proc] && blib.C_INPUTS[proc].indexOf(i) !== -1) {
