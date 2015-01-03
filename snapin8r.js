@@ -443,7 +443,7 @@
             if (proc === "getAttribute:of:") {
                 if (arg === "backdrop name") arg = "costume name";
                 if (arg === "backdrop #") arg = "costume #";
-                if (["volume", "x position", "y position", "direction", "costume #", "costume name"].indexOf("arg") !== -1) {
+                if (["volume", "x position", "y position", "direction", "costume #", "costume name"].indexOf(arg) !== -1) {
                     arg = new XMLData(new XMLData("option", null, arg));
                 }
                 mainblk.content.push(new XMLData("l", null, arg));
